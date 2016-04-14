@@ -87,14 +87,14 @@ namespace ShopExpander
                 // Register to inventory changes so we can immediately replace bought stacks
                 PlayerEvents.InventoryChanged += Event_InventoryChanged;
                 // Reflect the required fields to be able to edit a shops stock
-                itemPriceAndStock = ReflectionUtils.getReflectedInstanceField((Game1.activeClickableMenu as ShopMenu), "itemPriceAndStock");
-                forSale = ReflectionUtils.getReflectedInstanceField((Game1.activeClickableMenu as ShopMenu), "forSale");
+                itemPriceAndStock = ReflectionUtils.getReflectedInstanceField(Game1.activeClickableMenu, "itemPriceAndStock");
+                forSale = ReflectionUtils.getReflectedInstanceField(Game1.activeClickableMenu, "forSale");
                 // Add our custom items to the shop
                 foreach (string key in AddedObjects.Keys)
                     addItem(AddedObjects[key]);
                 // Use reflection to set the changed values
-                ReflectionUtils.setReflectedInstanceField((Game1.activeClickableMenu as ShopMenu), "itemPriceAndStock", itemPriceAndStock);
-                ReflectionUtils.setReflectedInstanceField((Game1.activeClickableMenu as ShopMenu), "forSale", forSale);
+                ReflectionUtils.setReflectedInstanceField(Game1.activeClickableMenu, "itemPriceAndStock", itemPriceAndStock);
+                ReflectionUtils.setReflectedInstanceField(Game1.activeClickableMenu, "forSale", forSale);
             }
         }
     }
