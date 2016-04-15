@@ -1,0 +1,35 @@
+// Example of the config structure intended to be used by my Advanced Location Loader mod
+// 
+
+{
+  about:{
+    author:"Entoarox",
+    description:"This is a example manifest for a mod that adds, replaces and edits locations",
+    version:"1.0.0"
+  },
+  locations:[
+    {name:"internalLocationNameForWarps",file:"NameOfXNBWithoutExtension",tilesheet:"TilesheetFileForOptional-zcustom-Tilesheet",type:"optionalMapTypeSetting"},
+    {name:"internalLocationNameForWarps",file:"NameOfXNBWithoutExtension",tilesheet:"TilesheetFileForOptional-zcustom-Tilesheet",type:"optionalMapTypeSetting"},
+    ...
+  ],
+  overrides:[
+    {name:"internalNameOfMapToOverride",file:"NameOfXNBWithoutExtension",tilesheet:"TilesheetFileForOptional-zcustom-Tilesheet"},
+    {name:"internalNameOfMapToOverride",file:"NameOfXNBWithoutExtension",tilesheet:"TilesheetFileForOptional-zcustom-Tilesheet"},
+    ...
+  ],
+  tiles:[
+    ["internalNameOfTargetMap","tileLayerNumber","tileX","tileY","tileIndex","tileSheet"],
+    ["internalNameOfTargetMap","tileLayerNumber","tileX","tileY","tileIndex","tileSheet"],
+    ...
+  ],
+  properties:[
+    ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
+    ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
+    ...
+  ]
+  warps:[
+    ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
+    ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
+    ...
+  ]
+}
