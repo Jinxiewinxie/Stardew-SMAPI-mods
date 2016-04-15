@@ -24,7 +24,7 @@
     ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
     ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
     ...
-  ]
+  ],
   "warps":[
     ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
     ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
