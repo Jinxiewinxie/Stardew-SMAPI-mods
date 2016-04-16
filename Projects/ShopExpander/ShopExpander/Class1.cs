@@ -121,7 +121,7 @@ namespace ShopExpander
             obj.targetedShop = location;
             obj.parentSheetIndex = stack.parentSheetIndex;
             obj.requirements = requirements;
-            Log.AsyncC("[SE/INFO] Object registered: " + obj.Name + ':' + replacement + '@' + location + '[' + obj.maximumStackSize() + ',' + obj.stackAmount + "]#"+requirements);
+            logUtils.info("Object registered: " + obj.Name + ':' + replacement + '@' + location + '[' + obj.maximumStackSize() + ',' + obj.stackAmount + "]#"+requirements);
             AddedObjects.Add(obj.Name, obj);
             ReplacementStacks.Add(obj.Name, stack);
         }
@@ -139,9 +139,8 @@ namespace ShopExpander
                 }
                 catch(Exception err)
                 {
-                    Log.AsyncR("[SE/ERROR] Object failed to generate: "+obj.ToString());
-                    if (config.debugMode)
-                        Log.AsyncO("[SE/DEBUG] Error message: "+err.Message);
+                    logUtils.error("Object failed to generate: "+obj.ToString());
+                    logUtils.debug("Error message: "+err.Message);
                 }
             }
 
@@ -153,8 +152,7 @@ namespace ShopExpander
             {
                 if (Game1.player.Items[c] is SObject)
                 {
-                    if (config.debugMode)
-                        Log.AsyncO("[SE/DEBUG] Replacing Object:" + Game1.player.Items[c].Name + ':' + Game1.player.Items[c].maximumStackSize());
+                    logUtils.debug("Replacing Object:" + Game1.player.Items[c].Name + ':' + Game1.player.Items[c].maximumStackSize());
                     Item item = ReplacementStacks[Game1.player.Items[c].Name].getOne();
                     item.Stack = (Game1.player.Items[c] as SObject).getStackNumber();
                     Game1.player.Items[c] = item;
@@ -173,18 +171,16 @@ namespace ShopExpander
         static List<string> weekdays = new List<string> {"sunday","monday","tuesday","wednesday","thursday","friday","saturday" };
         static void addItem(SObject item, string location)
         {
-            if (config.debugMode)
-                Log.AsyncO("[SE/DEBUG] Checking if object should be added: " + item.Name + ':' + item.maximumStackSize());
+            logUtils.debug("Checking if object should be added: " + item.Name + ':' + item.maximumStackSize());
             // Check that makes sure only the items that the current shop is supposed to sell are added
             if (location != item.targetedShop)
                 return;
-            if (config.debugMode)
-                Log.AsyncO("[SE/DEBUG] Object passed location check");
+            logUtils.debug("Object passed location check");
             string[] requirements = item.requirements.Split(',');
             // Each item can only have 4 distinct requirements, if it has more we refuse it
             if(requirements.GetLength(0)>4)
             {
-                Log.AsyncR("[SE/ERROR] Object has to many requirements: " + item.requirements);
+                logUtils.error("Object has to many requirements: " + item.requirements);
                 return;
             }
             // Check if all the requirements this item has are matched
@@ -206,6 +202,14 @@ namespace ShopExpander
                         break;
                     case "!earthquake":
                         if (Game1.stats.daysPlayed > 31)
+                            return;
+                        break;
+                    case "married":
+                        if (Game1.player.spouse == null)
+                            return;
+                        break;
+                    case "!married":
+                        if (Game1.player.spouse != null)
                             return;
                         break;
                     case "spring":
@@ -242,12 +246,47 @@ namespace ShopExpander
                         if (weekdays[Game1.dayOfMonth % 7] != req.Substring(1))
                             return;
                         break;
+                    case "marriedAlex":
+                    case "marriedElliot":
+                    case "marriedHarvey":
+                    case "marriedSam":
+                    case "marriedSebastian":
+                    case "marriedAbigail":
+                    case "marriedHaley":
+                    case "marriedLeah":
+                    case "marriedMaru":
+                    case "marriedPenny":
+                        if (Game1.player.spouse == null || !Game1.player.spouse.Equals(req.Substring(7)))
+                            return;
+                        break;
+                    case "!marriedAlex":
+                    case "!marriedElliot":
+                    case "!marriedHarvey":
+                    case "!marriedSam":
+                    case "!marriedSebastian":
+                    case "!marriedAbigail":
+                    case "!marriedHaley":
+                    case "!marriedLeah":
+                    case "!marriedMaru":
+                    case "!marriedPenny":
+                        if (Game1.player.spouse != null && Game1.player.spouse.Equals(req.Substring(7)))
+                            return;
+                        break;
                 }
             }
-            if (config.debugMode)
-                Log.AsyncO("[SE/DEBUG] Object passed requirement check and was added to shop");
-            forSale.Add(item);
-            itemPriceAndStock.Add(item, new int[2] { ReplacementStacks[item.name].salePrice() * ReplacementStacks[item.name].Stack, int.MaxValue });
+            logUtils.debug("Object passed requirement check and is being added to the current shop");
+            if(item.stackAmount==1)
+            {
+                logUtils.debug("Detected single-item stack, inserting stardew item");
+                forSale.Add(ReplacementStacks[item.Name].getOne());
+                itemPriceAndStock.Add(ReplacementStacks[item.Name].getOne(), new int[2] { ReplacementStacks[item.name].salePrice(), int.MaxValue });
+            }
+            else
+            {
+                logUtils.debug("Detected multi-item stack, inserting stack item");
+                forSale.Add(item);
+                itemPriceAndStock.Add(item, new int[2] { ReplacementStacks[item.name].salePrice() * ReplacementStacks[item.name].Stack, int.MaxValue });
+            }
         }
         static void addSimpleItem(Item item)
         {
@@ -262,8 +301,7 @@ namespace ShopExpander
         {
             if (Game1.activeClickableMenu is ShopMenu && affectedShops.Contains(Game1.currentLocation.name))
             {
-                if (config.debugMode)
-                    Log.AsyncO("[SE/DEBUG] Shop on the affected shops list opened");
+                logUtils.debug("Shop on the affected shops list opened");
                 // Register to inventory changes so we can immediately replace bought stacks
                 PlayerEvents.InventoryChanged += Event_InventoryChanged;
                 // Reflect the required fields to be able to edit a shops stock
@@ -288,6 +326,22 @@ namespace ShopExpander
         public static void setReflectedInstanceField(object target, string field, dynamic value)
         {
             target.GetType().GetField(field, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(target, value);
+        }
+    }
+    public class logUtils
+    {
+        public static void debug(string message)
+        {
+            if(ShopExpander.config.debugMode)
+                Log.AsyncO("[ShopExpander/DEBUG] "+message);
+        }
+        public static void info(string message)
+        {
+            Log.AsyncC("[ShopExpander/INFO] " + message);
+        }
+        public static void error(string message)
+        {
+            Log.AsyncR("[ShopExpander/ERROR] " + message);
         }
     }
     // My own extension to SMAPI's custom object, this lets it look as if shops are actually selling stacks even though they technically are not.
