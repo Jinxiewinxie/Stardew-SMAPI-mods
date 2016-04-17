@@ -110,7 +110,7 @@ namespace ShopExpander
         static void generateObject(string location, int replacement, int stackAmount, string requirements)
         {
             SObject obj = new SObject();
-            StardewValley.Object stack = new StardewValley.Object(Vector2.Zero, replacement, stackAmount);
+            StardewValley.Object stack = new StardewValley.Object(replacement, stackAmount,false,-1,0);
             obj.Name = stackAmount.ToString()+' '+stack.Name;
             obj.CategoryName = stack.getCategoryName();
             obj.CategoryColour = stack.getCategoryColor();
@@ -279,14 +279,18 @@ namespace ShopExpander
             {
                 logUtils.debug("Detected single-item stack, inserting stardew item");
                 forSale.Add(ReplacementStacks[item.Name].getOne());
-                itemPriceAndStock.Add(ReplacementStacks[item.Name].getOne(), new int[2] { ReplacementStacks[item.name].salePrice(), int.MaxValue });
+                itemPriceAndStock.Add(ReplacementStacks[item.Name].getOne(), new int[2] { getSalePrice(ReplacementStacks[item.name]), int.MaxValue });
             }
             else
             {
                 logUtils.debug("Detected multi-item stack, inserting stack item");
                 forSale.Add(item);
-                itemPriceAndStock.Add(item, new int[2] { ReplacementStacks[item.name].salePrice() * ReplacementStacks[item.name].Stack, int.MaxValue });
+                itemPriceAndStock.Add(item, new int[2] { getSalePrice(ReplacementStacks[item.name]) * ReplacementStacks[item.name].Stack, int.MaxValue });
             }
+        }
+        static int getSalePrice(Item item)
+        {
+            return item.salePrice()>0 ? 10 : item.salePrice();
         }
         static void addSimpleItem(Item item)
         {
