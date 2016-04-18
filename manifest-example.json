@@ -6,28 +6,28 @@
     "version":"1.0.0"
   },
   "locations":[
-    {"name":"internalLocationNameForWarps","file":"NameOfXNBWithoutExtension","tilesheet":"TilesheetFileForOptional-zcustom-Tilesheet","type":"optionalMapTypeSetting"},
-    {"name":"internalLocationNameForWarps","file":"NameOfXNBWithoutExtension","tilesheet":"TilesheetFileForOptional-zcustom-Tilesheet","type":"optionalMapTypeSetting"},
+    {"name":"mapName","file":"mapXNB","tilesheet":"zcustomOptionalTilesheetXNB","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
+    {"name":"mapName","file":"mapXNB","tilesheet":"zcustomOptionalTilesheetXNB-zcustom-TilesheetWithoutExtension","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
     ...
   ],
   "overrides":[
-    {"name":"internalNameOfMapToOverride","file":"NameOfXNBWithoutExtension","tilesheet":"TilesheetFileForOptional-zcustom-Tilesheet"},
-    {"name":"internalNameOfMapToOverride","file":"NameOfXNBWithoutExtension","tilesheet":"TilesheetFileForOptional-zcustom-Tilesheet"},
+    {"name":"mapName","file":"mapXNB","tilesheet":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
+    {"name":"mapName","file":"mapXNB","tilesheet":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
     ...
   ],
   "tiles":[
-    ["internalNameOfTargetMap","tileLayerNumber","tileX","tileY","tileIndex","tileSheet"],
-    ["internalNameOfTargetMap","tileLayerNumber","tileX","tileY","tileIndex","tileSheet"],
+    ["mapName","layerName","tileX","tileY","tileIndex","optionalTilesheetNumber"],
+    ["mapName","layerName","tileX","tileY","tileIndex","optionalTilesheetNumber"],
     ...
   ],
   "properties":[
-    ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
-    ["internalNameOfTargetMap","tileLayerName","tileX","tileY","propertyName","propertyValue"],
+    ["mapName","layerName","tileX","tileY","propertyName","propertyValue"],
+    ["mapName","layerName","tileX","tileY","propertyName","propertyValue"],
     ...
   ],
   "warps":[
-    ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
-    ["internalNameOfFromMap","fromTileX","fromTileY","internalNameOfToMap","toTileX","toTileY"],
+    ["fromMapName","fromTileX","fromTileY","toMapName","toTileX","toTileY"],
+    ["fromMapName","fromTileX","fromTileY","toMapName","toTileX","toTileY"],
     ...
   ]
 }
