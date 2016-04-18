@@ -7,12 +7,12 @@
   },
   "locations":[
     {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
-    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB-zcustom-TilesheetWithoutExtension","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
+    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
     ...
   ],
   "overrides":[
-    {"name":"mapName","file":"mapXNB","tile":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
-    {"name":"mapName","file":"mapXNB","tile":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
+    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB"},
+    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB"},
     ...
   ],
   "tiles":[
