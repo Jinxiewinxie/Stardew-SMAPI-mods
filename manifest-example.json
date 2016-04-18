@@ -6,13 +6,13 @@
     "version":"1.0.0"
   },
   "locations":[
-    {"name":"mapName","file":"mapXNB","tilesheet":"zcustomOptionalTilesheetXNB","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
-    {"name":"mapName","file":"mapXNB","tilesheet":"zcustomOptionalTilesheetXNB-zcustom-TilesheetWithoutExtension","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
+    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
+    {"name":"mapName","file":"mapXNB","tile":"zcustomOptionalTilesheetXNB-zcustom-TilesheetWithoutExtension","outdoor":"optionalTrueFalse","farmable":"optionalTrueFalse"},
     ...
   ],
   "overrides":[
-    {"name":"mapName","file":"mapXNB","tilesheet":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
-    {"name":"mapName","file":"mapXNB","tilesheet":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
+    {"name":"mapName","file":"mapXNB","tile":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
+    {"name":"mapName","file":"mapXNB","tile":"TilesheetFileForOptional-zcustom-TilesheetWithoutExtension"},
     ...
   ],
   "tiles":[
